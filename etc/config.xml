@@ -15,16 +15,18 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIP
+ * @package     Mageplaza_GeoIp
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Mageplaza_GeoIP" setup_version="1.0.0">
-        <sequence>
-            <module name="Magento_Backend"/>
-            <module name="Mageplaza_Core"/>
-        </sequence>
-    </module>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <geoip>
+            <general>
+                <enabled>0</enabled>
+                <download_path><![CDATA[http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz]]></download_path>
+            </general>
+        </geoip>
+    </default>
 </config>

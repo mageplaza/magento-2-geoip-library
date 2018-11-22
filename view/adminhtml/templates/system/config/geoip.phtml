@@ -1,0 +1,71 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_GeoIp
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/** @var \Mageplaza\GeoIp\Block\Adminhtml\System\Config\GeoIp $block */
+?>
+
+<script>
+    require([
+        'jquery',
+        'prototype'
+    ], function ($) {
+        var collectSpan = $('#collect_span');
+        var buttonDownload = $('#geoip_button');
+        buttonDownload.click(function () {
+            var params = {};
+            new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+                parameters: params,
+                loaderArea: false,
+                asynchronous: true,
+                onCreate: function () {
+                    collectSpan.find('.collected').hide();
+                    collectSpan.find('.processing').show();
+                    $('#collect_message_span').text('');
+                    buttonDownload.prop("disabled", true);
+                },
+                onSuccess: function (response) {
+                    var response = JSON.parse(response.responseText);
+                    collectSpan.find('.processing').hide();
+                    collectSpan.find('.collected').show();
+                    buttonDownload.prop("disabled", false);
+                    if (response.success) {
+                        $('<div class="message message-success" style="margin-bottom: 5px;color:#79a22e"><p>' + response.message + '</p></div>').insertBefore(buttonDownload);
+                    } else {
+                        $('<div class="message message-error" style="margin-bottom: 5px;color:red"><p>' + response.message + '</p></div>').insertBefore(buttonDownload);
+                    }
+                },
+                always: function () {
+                    buttonDownload.prop("disabled", false);
+                }
+            });
+        });
+    });
+</script>
+<?php echo $block->getButtonHtml() ?>
+<span class="collect-indicator" id="collect_span">
+	<span class="processing" hidden="hidden">
+		<img alt="Collecting" style="margin:0 5px"
+             src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+        <?php echo __('Please wait ...') ?>
+	</span>
+    <img class="collected" <?php echo $block->isDisplayIcon(); ?> alt="Collected" style="margin:-3px 5px"
+         src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+</span>

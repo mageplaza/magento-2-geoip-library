@@ -15,16 +15,15 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIP
+ * @package     Mageplaza_GeoIp
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Mageplaza_GeoIP" setup_version="1.0.0">
-        <sequence>
-            <module name="Magento_Backend"/>
-            <module name="Mageplaza_Core"/>
-        </sequence>
-    </module>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="mpgeoip" frontName="mpgeoip">
+            <module name="Mageplaza_GeoIp" />
+        </route>
+    </router>
 </config>
