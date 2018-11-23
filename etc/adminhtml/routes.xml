@@ -15,7 +15,7 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIp
+ * @package     Mageplaza_GeoIP
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
@@ -23,7 +23,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="admin">
         <route id="mpgeoip" frontName="mpgeoip">
-            <module name="Mageplaza_GeoIp" />
+            <module name="Mageplaza_GeoIP" />
         </route>
     </router>
 </config>

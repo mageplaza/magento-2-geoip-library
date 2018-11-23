@@ -14,22 +14,22 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIp
+ * @package     Mageplaza_GeoIP
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-namespace Mageplaza\GeoIp\Controller\Adminhtml\System\Config;
+namespace Mageplaza\GeoIP\Controller\Adminhtml\System\Config;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Mageplaza\GeoIp\Helper\Data as HelperData;
+use Mageplaza\GeoIP\Helper\Data as HelperData;
 
 /**
  * Class Geoip
- * @package Mageplaza\GeoIp\Controller\Adminhtml\System\Config
+ * @package Mageplaza\GeoIP\Controller\Adminhtml\System\Config
  */
 class Geoip extends Action
 {

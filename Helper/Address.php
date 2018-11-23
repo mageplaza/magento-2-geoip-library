@@ -14,15 +14,14 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIp
+ * @package     Mageplaza_GeoIP
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-namespace Mageplaza\GeoIp\Helper;
+namespace Mageplaza\GeoIP\Helper;
 
 use Magento\Customer\Helper\Address as CustomerAddressHelper;
-use Magento\Customer\Model\AttributeMetadataDataProvider;
 use Magento\Directory\Model\Region;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Helper\Context;
@@ -32,13 +31,10 @@ use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class Address
- * @package Mageplaza\Osc\Helper
+ * @package Mageplaza\GeoIP\Helper
  */
 class Address extends Data
 {
-    /** Field position */
-    const SORTED_FIELD_POSITION = 'osc/field/position';
-
     /**
      * @type \Magento\Framework\App\Filesystem\DirectoryList
      */

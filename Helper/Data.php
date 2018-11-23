@@ -14,18 +14,18 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIp
+ * @package     Mageplaza_GeoIP
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-namespace Mageplaza\GeoIp\Helper;
+namespace Mageplaza\GeoIP\Helper;
 
 use Mageplaza\Core\Helper\AbstractData;
 
 /**
  * Class Data
- * @package Mageplaza\GeoIp\Helper
+ * @package Mageplaza\GeoIP\Helper
  */
 class Data extends AbstractData
 {

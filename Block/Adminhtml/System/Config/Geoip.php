@@ -14,28 +14,28 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIp
+ * @package     Mageplaza_GeoIP
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-namespace Mageplaza\GeoIp\Block\Adminhtml\System\Config;
+namespace Mageplaza\GeoIP\Block\Adminhtml\System\Config;
 
 use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
-use Mageplaza\GeoIp\Helper\Data as HelperData;
+use Mageplaza\GeoIP\Helper\Data as HelperData;
 
 /**
  * Class Geoip
- * @package Mageplaza\GeoIp\Block\Adminhtml\System\Config
+ * @package Mageplaza\GeoIP\Block\Adminhtml\System\Config
  */
 class Geoip extends Field
 {
     /**
      * @var string
      */
-    protected $_template = 'Mageplaza_GeoIp::system/config/geoip.phtml';
+    protected $_template = 'Mageplaza_GeoIP::system/config/geoip.phtml';
 
     /**
      * @var HelperData

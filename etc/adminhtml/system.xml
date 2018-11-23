@@ -15,7 +15,7 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_GeoIp
+ * @package     Mageplaza_GeoIP
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
@@ -25,7 +25,7 @@
         <section id="geoip" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>GeoIp</label>
             <tab>mageplaza</tab>
-            <resource>Mageplaza_GeoIp::configuration</resource>
+            <resource>Mageplaza_GeoIP::configuration</resource>
             <group id="general" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>GeoIP Configuration</label>
                 <field id="enable" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -34,7 +34,7 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="download_library" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <frontend_model>Mageplaza\GeoIp\Block\Adminhtml\System\Config\Geoip</frontend_model>
+                    <frontend_model>Mageplaza\GeoIP\Block\Adminhtml\System\Config\Geoip</frontend_model>
                     <label></label>
                 </field>
             </group>
