@@ -113,27 +113,13 @@ class Address extends Data
 		if ($this->getConfigValue('geoip/general/enable') && $libPath && class_exists('GeoIp2\Database\Reader')) {
 			try {
 				$geoIp  = new \GeoIp2\Database\Reader($libPath, $this->getLocales());
-				$record = $geoIp->city($this->_request->getParam('fakeIp', null) ?: $this->_remoteAddress->getRemoteAddress());
+				$record = $geoIp->city($this->getIpAddress());
 
 				$geoIpData = [
 					'city'       => $record->city->name,
 					'country_id' => $record->country->isoCode,
 					'postcode'   => $record->postal->code
 				];
-
-				if ($record->mostSpecificSubdivision) {
-					$code = $record->mostSpecificSubdivision->isoCode;
-					if ($regionId = $this->_regionModel->loadByCode($code, $record->country->isoCode)->getId()) {
-						$geoIpData['region_id'] = $regionId;
-					} else {
-						$geoIpData['region'] = $record->mostSpecificSubdivision->name;
-					}
-				}
-				$allowedCountries = $this->getConfigValue('general/country/allow');
-				$allowedCountries = explode(',', $allowedCountries);
-				if (!in_array($geoIpData['country_id'], $allowedCountries)) {
-					$geoIpData = [];
-				}
 			} catch (\Exception $e) {
 				$geoIpData = [];
 			}
@@ -142,6 +128,28 @@ class Address extends Data
 		}
 
 		return [];
+	}
+
+	/**
+	 * Get IP
+	 * @return string
+	 */
+	public function getIpAddress()
+	{
+		$server = $this->_getRequest()->getServer();
+
+		if (!empty($server['HTTP_CLIENT_IP'])) {
+			$ip = $server['HTTP_CLIENT_IP'];
+		} elseif (!empty($server['HTTP_X_FORWARDED_FOR'])) {
+			$ip = $server['HTTP_X_FORWARDED_FOR'];
+		} else {
+			$ip = $server['REMOTE_ADDR'];
+		}
+
+		$ipArr = explode(',', $ip);
+		$ip    = $ipArr[count($ipArr) - 1];
+
+		return trim($ip);
 	}
 
 	/**
