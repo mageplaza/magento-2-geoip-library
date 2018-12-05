@@ -1,8 +1,9 @@
 {
-  "name": "mageplaza/module-geo-iP",
+  "name": "mageplaza/module-geo-ip",
   "description": "Magento 2 GEO IP Extension",
   "require": {
-    "mageplaza/module-core": "^1.4.0"
+    "mageplaza/module-core": "^1.4.0",
+    "geoip2/geoip2": "~2.0"
   },
   "type": "magento2-module",
   "version": "1.0.0",
