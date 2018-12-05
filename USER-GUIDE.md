@@ -1,11 +1,11 @@
 ## Documentation
 
 - Installation guide: https://www.mageplaza.com/install-magento-2-extension/#solution-1-ready-to-paste
-- User Guide: https://docs.mageplaza.com/geo-iP/
-- Product page: https://www.mageplaza.com/magento-2-geo-iP/
+- User Guide: https://docs.mageplaza.com/geo-ip/
+- Product page: https://www.mageplaza.com/magento-2-geo-ip/
 - FAQs: https://www.mageplaza.com/faqs/
 - Get Support: https://mageplaza.freshdesk.com/ or support@mageplaza.com
-- Changelog: https://www.mageplaza.com/releases/geo-iP/
+- Changelog: https://www.mageplaza.com/releases/geo-ip/
 - License agreement: https://www.mageplaza.com/LICENSE.txt
 
 ## How to install

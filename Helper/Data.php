@@ -56,5 +56,4 @@ class Data extends AbstractData
     {
         return $this->getConfigGeneral('download_path', $store);
     }
-
 }
