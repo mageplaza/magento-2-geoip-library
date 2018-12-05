@@ -1,1 +1,1 @@
-- User guide: https://docs.mageplaza.com/geo-iP/
+- User guide: https://docs.mageplaza.com/geo-ip/
