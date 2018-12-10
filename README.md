@@ -47,16 +47,22 @@ php bin/magento setup:static-content:deploy
 ### Find out customers' addressed quickly
 
 By recording the data of customers who access your sites, GeoIP extensions modifies and analyses them to obtain customers' addresses and show it immediately in some seconds. 
+
+![Imgur](https://i.imgur.com/hjobllS.png)
  
 ### Redirect customer to appropriate Store View and Language
 
 After getting the customers' addresses, GeoIP module continues to match these locations to the according stores with their familiar languages. For example, the customers with IP addresses in the United Stages will be automatically switched to US store view when they visit a multi-stores website. 
+
+![Imgur](https://i.imgur.com/rNIaRae.png)
 
 ### Automatically change to the appropriate currency 
 
 One of the most outstanding features of GeoIP is changing price currency to the one which is commonly used (such as USD). Also, it can be changed to local currency same as the customer’s country. 
 
 Moreover, customers do not need to change the product price to their wished currencies by themselves since GeoIP converts currency automatically. 
+
+![Imgur](https://i.imgur.com/qziNsI7.png)
 
 ### Effectively increase users experience on sites 
 
