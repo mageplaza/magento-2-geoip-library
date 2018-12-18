@@ -23,6 +23,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <geoip>
+            <module>
+                <type>1</type>
+            </module>
             <general>
                 <enabled>0</enabled>
                 <download_path><![CDATA[http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz]]></download_path>

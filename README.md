@@ -37,7 +37,7 @@ Install via composer (recommend)
 Run the following command in Magento 2 root folder:
 
 ```
-composer require mageplaza/module-geoip
+composer require mageplaza/module-geo-ip
 php bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy
 ```
