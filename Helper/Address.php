@@ -113,7 +113,9 @@ class Address extends Data
         if ($this->getConfigValue('geoip/general/enable') && $libPath && class_exists('GeoIp2\Database\Reader')) {
             try {
                 $geoIp  = new \GeoIp2\Database\Reader($libPath, $this->getLocales());
-                $record = $geoIp->city($this->getIpAddress());
+
+                $record = $geoIp->city($this->_request->getParam('fakeIp', null) ?: $this->getIpAddress());
+//                $record = $geoIp->city($this->getIpAddress());
 
                 $geoIpData = [
                     'city'       => $record->city->name,
