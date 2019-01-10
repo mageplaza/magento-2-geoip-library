@@ -94,7 +94,7 @@ Geo IP and Store Switcher are built with several similar features. Therefore, in
 
 ## 6. How to configure the GeoIP module
 
-From the `Admin Panel`, go to `Stores > Store Switcher > Configuration > Mageplaza Extension > Geo IP Configuration`, choose `Geo IP Configuration` section.
+From the `Admin Panel`, go to `Stores > Configuration > Mageplaza Extension > Geo IP `, choose `Geo IP Configuration` section.
 
 ![Imgur](https://i.imgur.com/z5uvaP0.png)
 
