@@ -30,7 +30,7 @@ A:  First of all, please select two currencies by access to:  `Stories > Configu
 
 A: They can do it with ease by selecting the store view on the top menu of the frontend.    
 
-## 3. How to install Share Cart extension for Magento 2
+## 3. How to install GeoIP extension for Magento 2
 
 Install via composer (recommend)
 
