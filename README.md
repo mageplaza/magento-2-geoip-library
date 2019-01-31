@@ -30,7 +30,7 @@ A:  First of all, please select two currencies by access to:  `Stories > Configu
 
 A: They can do it with ease by selecting the store view on the top menu of the frontend.    
 
-## 3. How to install Share Cart extension for Magento 2
+## 3. How to install GeoIP extension for Magento 2
 
 Install via composer (recommend)
 
@@ -94,7 +94,7 @@ Geo IP and Store Switcher are built with several similar features. Therefore, in
 
 ## 6. How to configure the GeoIP module
 
-From the `Admin Panel`, go to `Stores > Store Switcher > Configuration > Mageplaza Extension > Geo IP Configuration`, choose `Geo IP Configuration` section.
+From the `Admin Panel`, go to `Stores > Configuration > Mageplaza Extension > Geo IP`, choose `Geo IP Configuration` section.
 
 ![Imgur](https://i.imgur.com/z5uvaP0.png)
 
