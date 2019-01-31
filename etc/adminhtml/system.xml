@@ -23,12 +23,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="geoip" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>GeoIp</label>
+            <label>GeoIP</label>
             <tab>mageplaza</tab>
             <resource>Mageplaza_GeoIP::configuration</resource>
             <group id="general" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>GeoIP Configuration</label>
-                <field id="enable" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="enabled" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable GeoIP</label>
                     <comment>Please download library before enabling GeoIP</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

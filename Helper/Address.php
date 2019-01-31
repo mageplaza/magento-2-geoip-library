@@ -57,6 +57,7 @@ class Address extends Data
 
     /**
      * Address constructor.
+     *
      * @param Context $context
      * @param ObjectManagerInterface $objectManager
      * @param StoreManagerInterface $storeManager
@@ -71,11 +72,10 @@ class Address extends Data
         DirectoryList $directoryList,
         Resolver $localeResolver,
         Region $regionModel
-    )
-    {
-        $this->_directoryList  = $directoryList;
+    ) {
+        $this->_directoryList = $directoryList;
         $this->_localeResolver = $localeResolver;
-        $this->_regionModel    = $regionModel;
+        $this->_regionModel = $regionModel;
 
         parent::__construct($context, $objectManager, $storeManager);
     }
@@ -93,7 +93,7 @@ class Address extends Data
             return false;
         }
 
-        $folder   = scandir($path, true);
+        $folder = scandir($path, true);
         $pathFile = $path . '/' . $folder[0] . '/GeoLite2-City.mmdb';
         if (!file_exists($pathFile)) {
             return false;
@@ -103,33 +103,40 @@ class Address extends Data
     }
 
     /**
+     * @param null $storeId
+     *
      * @return array
-     * @throws \Magento\Framework\Exception\FileSystemException
      */
-    public function getGeoIpData()
+    public function getGeoIpData($storeId = null)
     {
-        $libPath = $this->checkHasLibrary();
-
-        if ($this->getConfigValue('geoip/general/enable') && $libPath && class_exists('GeoIp2\Database\Reader')) {
-            try {
-                $geoIp  = new \GeoIp2\Database\Reader($libPath, $this->getLocales());
-
+        try {
+            $libPath = $this->checkHasLibrary();
+            if ($this->isEnabled($storeId) && $libPath && class_exists('GeoIp2\Database\Reader')) {
+                $geoIp = new \GeoIp2\Database\Reader($libPath, $this->getLocales());
                 $record = $geoIp->city($this->_request->getParam('fakeIp', null) ?: $this->getIpAddress());
-//                $record = $geoIp->city($this->getIpAddress());
 
                 $geoIpData = [
                     'city'       => $record->city->name,
                     'country_id' => $record->country->isoCode,
                     'postcode'   => $record->postal->code
                 ];
-            } catch (\Exception $e) {
+
+                if ($record->mostSpecificSubdivision) {
+                    $code = $record->mostSpecificSubdivision->isoCode;
+                    if ($regionId = $this->_regionModel->loadByCode($code, $record->country->isoCode)->getId()) {
+                        $geoIpData['region_id'] = $regionId;
+                    } else {
+                        $geoIpData['region'] = $record->mostSpecificSubdivision->name;
+                    }
+                }
+            } else {
                 $geoIpData = [];
             }
-
-            return $geoIpData;
+        } catch (\Exception $e) {
+            $geoIpData = [];
         }
 
-        return [];
+        return $geoIpData;
     }
 
     /**
@@ -149,7 +156,7 @@ class Address extends Data
         }
 
         $ipArr = explode(',', $ip);
-        $ip    = $ipArr[count($ipArr) - 1];
+        $ip = $ipArr[count($ipArr) - 1];
 
         return trim($ip);
     }
@@ -159,7 +166,7 @@ class Address extends Data
      */
     protected function getLocales()
     {
-        $locale   = $this->_localeResolver->getLocale();
+        $locale = $this->_localeResolver->getLocale();
         $language = substr($locale, 0, 2) ? substr($locale, 0, 2) : 'en';
 
         $locales = [$language];
