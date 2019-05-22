@@ -7,7 +7,7 @@ GeoIP extension for Magento 2 is an optimal solution for generating awesome cust
 - Auto-switch to the appropriate price currency  
 - Fully compatible with [Mageplaza Store Switcher](https://www.mageplaza.com/magento-2-store-switcher/)
 
-## 1. Documentation
+## 1. GeoIp Documentation
 
 - [Installation guide](https://www.mageplaza.com/install-magento-2-extension/)
 - [User guide](https://docs.mageplaza.com/geoip/index.html)
@@ -74,7 +74,7 @@ Being automatically moved to the appropriate store views with the familiar langu
 
 Geo IP and Store Switcher are built with several similar features. Therefore, integrate both extensions will help store admins make full use of customers' data and so that your shopping sites will optimize the customers’ experience from their first-time visits. 
 
-## 5. Full features list
+## 5. Full Magento 2 GeoIP features
 
 ### For store owners
 
@@ -104,6 +104,25 @@ From the `Admin Panel`, go to `Stores > Configuration > Mageplaza Extension > Ge
 
 
 
+**People also search:**
+- geoip magento 2
+- magento 2 geo ip
+- magento 2 geoip extension
+- magento 2 geoip redirect
+- magento 2 geoip store switcher
+- magento 2 geolocation
+- magento 2 geoip currency switcher
+
+
+**Other free Magento 2 extensions on Github**
+- [Magento 2 SEO Suite](https://github.com/mageplaza/magento-2-seo)
+- [Magento 2 google maps](https://github.com/mageplaza/magento-2-google-maps)
+- [Magento 2 Delete Orders](https://github.com/mageplaza/magento-2-delete-orders)
+- [Magento 2 GDPR](https://github.com/mageplaza/magento-2-gdpr)
+- [Magento 2 Backend Reindex](https://github.com/mageplaza/magento-2-backend-reindex)
+- [Magento 2 Social login free](https://github.com/mageplaza/magento-2-social-login)
+- [Magento 2 security](https://github.com/mageplaza/magento-2-security)
+- [Magento 2 Blog](https://github.com/mageplaza/magento-2-blog)
 
 
 
