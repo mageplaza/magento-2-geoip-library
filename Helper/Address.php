@@ -147,12 +147,11 @@ class Address extends Data
     {
         $server = $this->_getRequest()->getServer();
 
+        $ip = $server['REMOTE_ADDR'];
         if (!empty($server['HTTP_CLIENT_IP'])) {
             $ip = $server['HTTP_CLIENT_IP'];
-        } else if (!empty($server['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (!empty($server['HTTP_X_FORWARDED_FOR'])) {
             $ip = $server['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = $server['REMOTE_ADDR'];
         }
 
         $ipArr = explode(',', $ip);
@@ -166,11 +165,10 @@ class Address extends Data
      */
     protected function getLocales()
     {
-        $locale = $this->_localeResolver->getLocale();
-        $language = substr($locale, 0, 2) ? substr($locale, 0, 2) : 'en';
+        $language = substr($this->_localeResolver->getLocale(), 0, 2) ?: 'en';
 
         $locales = [$language];
-        if ($language != 'en') {
+        if ($language !== 'en') {
             $locales[] = 'en';
         }
 

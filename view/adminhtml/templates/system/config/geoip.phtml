@@ -31,7 +31,7 @@
         var buttonDownload = $('#geoip_button');
         buttonDownload.click(function () {
             var params = {};
-            new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+            new Ajax.Request('<?= /** @noEscape */ $block->getAjaxUrl() ?>', {
                 parameters: params,
                 loaderArea: false,
                 asynchronous: true,
@@ -59,13 +59,13 @@
         });
     });
 </script>
-<?php echo $block->getButtonHtml() ?>
+<?= /** @noEscape */ $block->getButtonHtml() ?>
 <span class="collect-indicator" id="collect_span">
-	<span class="processing" hidden="hidden">
-		<img alt="Collecting" style="margin:0 5px"
-             src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
-        <?php echo __('Please wait ...') ?>
-	</span>
-    <img class="collected" <?php echo $block->isDisplayIcon(); ?> alt="Collected" style="margin:-3px 5px"
-         src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+    <span class="processing" hidden="hidden">
+        <img alt="Collecting" style="margin:0 5px"
+             src="<?= /** @noEscape */ $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+        <?= /** @noEscape */ __('Please wait ...') ?>
+    </span>
+    <img class="collected" <?= /** @noEscape */ $block->isDisplayIcon() ?> alt="Collected" style="margin:-3px 5px"
+         src="<?= /** @noEscape */ $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
 </span>

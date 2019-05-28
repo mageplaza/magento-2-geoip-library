@@ -22,8 +22,11 @@
 namespace Mageplaza\GeoIP\Block\Adminhtml\System\Config;
 
 use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Block\Widget\Button;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\LocalizedException;
 use Mageplaza\GeoIP\Helper\Data as HelperData;
 
 /**
@@ -38,22 +41,22 @@ class Geoip extends Field
     protected $_template = 'Mageplaza_GeoIP::system/config/geoip.phtml';
 
     /**
-     * @var \Mageplaza\GeoIP\Helper\Data
+     * @var HelperData
      */
     protected $_helperData;
 
     /**
      * Geoip constructor.
-     * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Mageplaza\GeoIP\Helper\Data $helperData
+     *
+     * @param Context $context
+     * @param HelperData $helperData
      * @param array $data
      */
     public function __construct(
         Context $context,
         HelperData $helperData,
         array $data = []
-    )
-    {
+    ) {
         $this->_helperData = $helperData;
 
         parent::__construct($context, $data);
@@ -63,6 +66,7 @@ class Geoip extends Field
      * Remove scope label
      *
      * @param AbstractElement $element
+     *
      * @return string
      */
     public function render(AbstractElement $element)
@@ -76,6 +80,7 @@ class Geoip extends Field
      * Return element html
      *
      * @param AbstractElement $element
+     *
      * @return string
      */
     protected function _getElementHtml(AbstractElement $element)
@@ -97,11 +102,11 @@ class Geoip extends Field
      * Generate collect button html
      *
      * @return mixed
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function getButtonHtml()
     {
-        $button = $this->getLayout()->createBlock('Magento\Backend\Block\Widget\Button')
+        $button = $this->getLayout()->createBlock(Button::class)
             ->setData([
                 'id'    => 'geoip_button',
                 'label' => __('Download Library'),
@@ -112,7 +117,7 @@ class Geoip extends Field
 
     /**
      * @return string
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws FileSystemException
      */
     public function isDisplayIcon()
     {

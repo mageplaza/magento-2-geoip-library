@@ -60,8 +60,7 @@ class Geoip extends Action
         JsonFactory $resultJsonFactory,
         DirectoryList $directoryList,
         HelperData $helperData
-    )
-    {
+    ) {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->_directoryList    = $directoryList;
         $this->_helperData       = $helperData;
@@ -87,18 +86,18 @@ class Geoip extends Action
                     if ($filename == '..' || $filename == '.') {
                         continue;
                     }
-                    @unlink($path . '/' . $folder[0] . '/' . $filename);
+                    unlink($path . '/' . $folder[0] . '/' . $filename);
                 }
-                @rmdir($path . '/' . $folder[0]);
+                rmdir($path . '/' . $folder[0]);
             }
 
             file_put_contents($path . '/GeoLite2-City.tar.gz', fopen($this->_helperData->getDownloadPath(), 'r'));
             $phar = new \PharData($path . '/GeoLite2-City.tar.gz');
             $phar->extractTo($path);
             $status  = true;
-            $message = __("Download library success!");
+            $message = __('Download library success!');
         } catch (\Exception $e) {
-            $message = __("Can't download file. Please try again! %1", $e->getMessage());
+            $message = __('Can\'t download file. Please try again! %1', $e->getMessage());
         }
 
         /** @var \Magento\Framework\Controller\Result\Json $result */
