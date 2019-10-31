@@ -1,34 +1,29 @@
 # Magento 2 GeoIP Extension
 
-GeoIP extension for Magento 2 is an optimal solution for generating awesome customers’ experiences. It records the customers’ IP addresses then use it for navigating them to the suitable store locations, languages and currencies promptly. 
+GeoIP Library for Magento 2 provides stores with GeoIP Database, which supports to detect the current geolocation of customer using his IP address. 
 
 - Discover customers' location quickly
-- Redirect customers to related stores with their local languages
-- Auto-switch to the appropriate price currency  
 - Fully compatible with [Mageplaza Store Switcher](https://www.mageplaza.com/magento-2-store-switcher/)
 
 ## 1. GeoIp Documentation
 
 - [Installation guide](https://www.mageplaza.com/install-magento-2-extension/)
-- [User guide](https://docs.mageplaza.com/geoip/index.html)
+- [User guide](https://docs.mageplaza.com/geoip-library/index.html)
 - [Introduction page](http://www.mageplaza.com/magento-2-geoip/)
-- [Contribute on Github](https://github.com/mageplaza/magento-2-geoip)
-- [Get Support](https://github.com/mageplaza/magento-2-geoip/issues)
+- [Contribute on Github](https://github.com/mageplaza/magento-2-geoip-library)
+- [Get Support](https://github.com/mageplaza/magento-2-geoip-library/issues)
 
 
 ## 2. FAQs
 
-**Q: If customers switch to another store view, whether the language can be changed accordingly?**
+**Q: I got error: Mageplaza_Core has been already defined**
 
-A: Definitely, yes. GeoIP conducts the detection of IP addresses and the changing of languages at the same time. 
+A: Read solution [here](https://github.com/mageplaza/module-core/issues/3)
 
-**Q: How can I set up the currency rate for changing price currency when stores are changed?**
+**Q: What is the library used for?**
 
-A:  First of all, please select two currencies by access to:  `Stories > Configuration > Currency Setup`. Then, to set the currency rate, please go to `Stories > Currency > Currency Rates`.  
-
-**Q: How can customers come back to their initial store view?**
-
-A: They can do it with ease by selecting the store view on the top menu of the frontend.    
+A: GeoIP library contains the GeoLite 2 geolocation database. Based on this, you can take advantage to build up other advanced functions such as auto-detect customer’ address to [suggest stores](https://www.mageplaza.com/magento-2-store-locator-extension/), s[witch appropriate language storeview](https://www.mageplaza.com/magento-2-store-switcher/). 
+   
 
 ## 3. How to install GeoIP extension for Magento 2
 
@@ -44,55 +39,18 @@ php bin/magento setup:static-content:deploy
 
 ## 4. Highlight features
 
-### Find out customers' addressed quickly
+The module is built based on the GeoLite 2 database, also the IP geolocation database. The GeoLite2 Country, City, and ASN databases are updated frequently. 
 
-By recording the data of customers who access your sites, GeoIP extensions modifies and analyses them to obtain customers' addresses and show it immediately in some seconds. 
+In this free module, the store admin can download the library to get the Geolocation database. The database is the basement to power other advanced location functions (store switching, store locating) 
 
-![Imgur](https://i.imgur.com/hjobllS.png)
- 
-### Redirect customer to appropriate Store View and Language
+With 2 simple steps, you can download the geodatabase library and enable the module to activate the library and come into usage. 
 
-After getting the customers' addresses, GeoIP module continues to match these locations to the according stores with their familiar languages. For example, the customers with IP addresses in the United Stages will be automatically switched to US store view when they visit a multi-stores website. 
+![Highlight features](https://i.imgur.com/K0xoXAV.png)
 
-![Imgur](https://i.imgur.com/rNIaRae.png)
-
-### Automatically change to the appropriate currency 
-
-One of the most outstanding features of GeoIP is changing price currency to the one which is commonly used (such as USD). Also, it can be changed to local currency same as the customer’s country. 
-
-Moreover, customers do not need to change the product price to their wished currencies by themselves since GeoIP converts currency automatically. 
-
-![Imgur](https://i.imgur.com/qziNsI7.png)
-
-### Effectively increase users experience on sites 
-
-Multiple-stores site in different locations now totally can gain as many as customers as possible with GeoIP. The module built to enhance users'accessability and usability on sites.
-
-Being automatically moved to the appropriate store views with the familiar languages and currencies, customers will feel the shopping sites much more friendly and convenient to use. As a result, customers willing to invest their time for shopping and picking up their favourite items with ease. 
-
-### Fully compatible with Mageplaza Store Switcher extension
-
-Geo IP and Store Switcher are built with several similar features. Therefore, integrate both extensions will help store admins make full use of customers' data and so that your shopping sites will optimize the customers’ experience from their first-time visits. 
-
-## 5. Full Magento 2 GeoIP features
-
-### For store owners
-
-- Enable/Disable the module
-- Detect users'location with easy
-- Redirect customers to their familiar store views
-- Switch the language of their stores 
-- Change the currency to local stores correspondingly
-- Reduce bounce rate from first-time site visits
-- Fully compatible with Magento 2 Store Switcher
-
-### For customers
-
-- View the site with familiar language and currency
-- Switch to another site easily
+GeoIP library is used to develop [Magento 2 Store Switcher](https://www.mageplaza.com/magento-2-store-switcher/), [Magento 2 Store Locator](https://www.mageplaza.com/magento-2-store-locator-extension/) and [Magento 2 Store Pickup](https://www.mageplaza.com/magento-2-store-pickup-extension/) by Mageplaza 
 
 
-## 6. How to configure the GeoIP module
+## 5. How to configure the GeoIP module
 
 From the `Admin Panel`, go to `Stores > Configuration > Mageplaza Extension > Geo IP`, choose `Geo IP Configuration` section.
 
