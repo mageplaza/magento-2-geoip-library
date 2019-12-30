@@ -73,9 +73,9 @@ class Address extends Data
         Resolver $localeResolver,
         Region $regionModel
     ) {
-        $this->_directoryList = $directoryList;
+        $this->_directoryList  = $directoryList;
         $this->_localeResolver = $localeResolver;
-        $this->_regionModel = $regionModel;
+        $this->_regionModel    = $regionModel;
 
         parent::__construct($context, $objectManager, $storeManager);
     }
@@ -93,7 +93,7 @@ class Address extends Data
             return false;
         }
 
-        $folder = scandir($path, true);
+        $folder   = scandir($path, true);
         $pathFile = $path . '/' . $folder[0] . '/GeoLite2-City.mmdb';
         if (!file_exists($pathFile)) {
             return false;
@@ -112,8 +112,8 @@ class Address extends Data
         try {
             $libPath = $this->checkHasLibrary();
             if ($this->isEnabled($storeId) && $libPath && class_exists('GeoIp2\Database\Reader')) {
-                $geoIp = new \GeoIp2\Database\Reader($libPath, $this->getLocales());
-                $record = $geoIp->city($this->_request->getParam('fakeIp', null) ?: $this->getIpAddress());
+                $geoIp  = new \GeoIp2\Database\Reader($libPath, $this->getLocales());
+                $record = $geoIp->city($this->getIpAddress());
 
                 $geoIpData = [
                     'city'       => $record->city->name,
@@ -133,6 +133,7 @@ class Address extends Data
                 $geoIpData = [];
             }
         } catch (\Exception $e) {
+            // No Ip found in database
             $geoIpData = [];
         }
 
@@ -145,6 +146,11 @@ class Address extends Data
      */
     public function getIpAddress()
     {
+        $fakeIP = $this->_request->getParam('fakeIp', false);
+        if ($fakeIP) {
+            return $fakeIP;
+        }
+
         $server = $this->_getRequest()->getServer();
 
         $ip = $server['REMOTE_ADDR'];
@@ -155,7 +161,7 @@ class Address extends Data
         }
 
         $ipArr = explode(',', $ip);
-        $ip = $ipArr[count($ipArr) - 1];
+        $ip    = $ipArr[count($ipArr) - 1];
 
         return trim($ip);
     }
