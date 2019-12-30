@@ -2,7 +2,7 @@
 "Download library success!","Download library success!"
 "Can't download file. Please try again! %1","Can't download file. Please try again! %1"
 "Please wait ...","Please wait ..."
-GeoIp,GeoIp
+GeoIP,GeoIP
 "GeoIP Configuration","GeoIP Configuration"
 "Enable GeoIP","Enable GeoIP"
 "Please download library before enabling GeoIP","Please download library before enabling GeoIP"

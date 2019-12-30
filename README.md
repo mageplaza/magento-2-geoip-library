@@ -5,7 +5,7 @@ GeoIP Library for Magento 2 provides stores with GeoIP Database, which supports 
 - Discover customers' location quickly
 - Fully compatible with [Mageplaza Store Switcher](https://www.mageplaza.com/magento-2-store-switcher/)
 
-## 1. GeoIp Documentation
+## 1. GeoIp Documentation 
 
 - [Installation guide](https://www.mageplaza.com/install-magento-2-extension/)
 - [User guide](https://docs.mageplaza.com/geoip-library/index.html)

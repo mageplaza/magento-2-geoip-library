@@ -92,6 +92,10 @@ class Geoip extends Action
             }
 
             file_put_contents($path . '/GeoLite2-City.tar.gz', fopen($this->_helperData->getDownloadPath(), 'r'));
+            if (!in_array('phar', \stream_get_wrappers(), true)) {
+                \stream_wrapper_restore('phar');
+            }
+
             $phar = new \PharData($path . '/GeoLite2-City.tar.gz');
             $phar->extractTo($path);
             $status  = true;
