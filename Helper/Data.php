@@ -50,10 +50,14 @@ class Data extends AbstractData
 
     /**
      * @param null $store
-     * @return mixed
+     *
+     * @return string
      */
     public function getDownloadPath($store = null)
     {
-        return $this->getConfigGeneral('download_path', $store);
+        $token = $this->getConfigGeneral('token', $store);
+
+        return 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City;license_key=' . $token .
+            ';suffix=tar.gz';
     }
 }
