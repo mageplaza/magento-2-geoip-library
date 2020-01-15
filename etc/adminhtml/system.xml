@@ -33,7 +33,7 @@
                     <comment>Please download library before enabling GeoIP</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="token" translate="label comment" type="text" sortOrder="20" showInDefault="1">
+                <field id="token" translate="label comment" type="obscure" sortOrder="20" showInDefault="1">
                     <label>Token</label>
                     <validate>required-entry</validate>
                     <comment><![CDATA[Please get token <a href="https://www.maxmind.com/en/accounts/current/license-key" target="_blank">here</a>]]></comment>
