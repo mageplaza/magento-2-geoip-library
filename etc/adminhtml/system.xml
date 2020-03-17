@@ -36,7 +36,7 @@
                 <field id="token" translate="label comment" type="obscure" sortOrder="20" showInDefault="1">
                     <label>Token</label>
                     <validate>required-entry</validate>
-                    <comment><![CDATA[Please get token <a href="https://www.maxmind.com/en/accounts/current/license-key" target="_blank">here</a>]]></comment>
+                    <comment><![CDATA[Please create <a href="https://www.maxmind.com/en/geolite2/signup" target="_blank">account</a> and get license key <a href="https://www.maxmind.com/en/accounts/current/license-key" target="_blank">here</a>]]></comment>
                 </field>
                 <field id="download_library" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
                     <frontend_model>Mageplaza\GeoIP\Block\Adminhtml\System\Config\Geoip</frontend_model>

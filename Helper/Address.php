@@ -161,9 +161,8 @@ class Address extends Data
         }
 
         $ipArr = explode(',', $ip);
-        $ip    = $ipArr[count($ipArr) - 1];
 
-        return trim($ip);
+        return array_shift($ipArr);
     }
 
     /**
