@@ -34,7 +34,7 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="token" translate="label comment" type="obscure" sortOrder="20" showInDefault="1">
-                    <label>Token</label>
+                    <label>License Key</label>
                     <validate>required-entry</validate>
                     <comment><![CDATA[Please create <a href="https://www.maxmind.com/en/geolite2/signup" target="_blank">account</a> and get license key <a href="https://www.maxmind.com/en/accounts/current/license-key" target="_blank">here</a>]]></comment>
                 </field>
