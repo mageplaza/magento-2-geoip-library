@@ -21,10 +21,13 @@
 
 namespace Mageplaza\GeoIP\Helper;
 
+use Exception;
+use GeoIp2\Database\Reader;
 use Magento\Customer\Helper\Address as CustomerAddressHelper;
 use Magento\Directory\Model\Region;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Helper\Context;
+use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Locale\Resolver;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
@@ -36,17 +39,17 @@ use Magento\Store\Model\StoreManagerInterface;
 class Address extends Data
 {
     /**
-     * @type \Magento\Framework\App\Filesystem\DirectoryList
+     * @type DirectoryList
      */
     protected $_directoryList;
 
     /**
-     * @type \Magento\Framework\Locale\Resolver
+     * @type Resolver
      */
     protected $_localeResolver;
 
     /**
-     * @type \Magento\Directory\Model\Region
+     * @type Region
      */
     protected $_regionModel;
 
@@ -84,7 +87,7 @@ class Address extends Data
     /**
      * Check has library at path var/Mageplaza/GeoIp/GeoIp/
      * @return bool|string
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws FileSystemException
      */
     public function checkHasLibrary()
     {
@@ -112,7 +115,7 @@ class Address extends Data
         try {
             $libPath = $this->checkHasLibrary();
             if ($this->isEnabled($storeId) && $libPath && class_exists('GeoIp2\Database\Reader')) {
-                $geoIp  = new \GeoIp2\Database\Reader($libPath, $this->getLocales());
+                $geoIp  = new Reader($libPath, $this->getLocales());
                 $record = $geoIp->city($this->getIpAddress());
 
                 $geoIpData = [
@@ -132,7 +135,7 @@ class Address extends Data
             } else {
                 $geoIpData = [];
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // No Ip found in database
             $geoIpData = [];
         }
@@ -161,9 +164,8 @@ class Address extends Data
         }
 
         $ipArr = explode(',', $ip);
-        $ip    = $ipArr[count($ipArr) - 1];
 
-        return trim($ip);
+        return array_shift($ipArr);
     }
 
     /**
