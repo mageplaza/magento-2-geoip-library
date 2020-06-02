@@ -57,6 +57,6 @@ class Data extends AbstractData
     {
         $token = $this->getConfigGeneral('token', $store);
 
-        return 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key='. $token .'&suffix=tar.gz';
+        return 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=' . $token . '&suffix=tar.gz';
     }
 }

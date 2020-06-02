@@ -6,3 +6,6 @@ GeoIP,GeoIP
 "GeoIP Configuration","GeoIP Configuration"
 "Enable GeoIP","Enable GeoIP"
 "Please download library before enabling GeoIP","Please download library before enabling GeoIP"
+"License Key","License Key"
+"Please create <a href=""https://www.maxmind.com/en/geolite2/signup"" target=""_blank"">account</a> and get license key <a href=""https://www.maxmind.com/en/accounts/current/license-key"" target=""_blank"">here</a>","Please create <a href=""https://www.maxmind.com/en/geolite2/signup"" target=""_blank"">account</a> and get license key <a href=""https://www.maxmind.com/en/accounts/current/license-key"" target=""_blank"">here</a>"
+"Please save token before downloading the library","Please save token before downloading the library"

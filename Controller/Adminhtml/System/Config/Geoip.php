@@ -21,11 +21,16 @@
 
 namespace Mageplaza\GeoIP\Controller\Adminhtml\System\Config;
 
+use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Mageplaza\GeoIP\Helper\Data as HelperData;
+use PharData;
+use function stream_get_wrappers;
+use function stream_wrapper_restore;
 
 /**
  * Class Geoip
@@ -34,26 +39,27 @@ use Mageplaza\GeoIP\Helper\Data as HelperData;
 class Geoip extends Action
 {
     /**
-     * @var \Magento\Framework\Controller\Result\JsonFactory
+     * @var JsonFactory
      */
     protected $resultJsonFactory;
 
     /**
-     * @var \Magento\Framework\App\Filesystem\DirectoryList
+     * @var DirectoryList
      */
     protected $_directoryList;
 
     /**
-     * @var \Mageplaza\GeoIP\Helper\Data
+     * @var HelperData
      */
     protected $_helperData;
 
     /**
      * Geoip constructor.
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
-     * @param \Magento\Framework\App\Filesystem\DirectoryList $directoryList
-     * @param \Mageplaza\GeoIP\Helper\Data $helperData
+     *
+     * @param Context $context
+     * @param JsonFactory $resultJsonFactory
+     * @param DirectoryList $directoryList
+     * @param HelperData $helperData
      */
     public function __construct(
         Context $context,
@@ -92,19 +98,19 @@ class Geoip extends Action
             }
 
             file_put_contents($path . '/GeoLite2-City.tar.gz', fopen($this->_helperData->getDownloadPath(), 'r'));
-            if (!in_array('phar', \stream_get_wrappers(), true)) {
-                \stream_wrapper_restore('phar');
+            if (!in_array('phar', stream_get_wrappers(), true)) {
+                stream_wrapper_restore('phar');
             }
 
-            $phar = new \PharData($path . '/GeoLite2-City.tar.gz');
+            $phar = new PharData($path . '/GeoLite2-City.tar.gz');
             $phar->extractTo($path);
             $status  = true;
             $message = __('Download library success!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $message = __('Can\'t download file. Please try again! %1', $e->getMessage());
         }
 
-        /** @var \Magento\Framework\Controller\Result\Json $result */
+        /** @var Json $result */
         $result = $this->resultJsonFactory->create();
 
         return $result->setData(['success' => $status, 'message' => $message]);
