@@ -6,7 +6,7 @@
     "geoip2/geoip2": "~2.0"
   },
   "type": "magento2-module",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "proprietary",
   "authors": [
     {
