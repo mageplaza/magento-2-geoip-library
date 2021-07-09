@@ -28,6 +28,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Mageplaza\GeoIP\Helper\Data as HelperData;
+use Psr\Log\LoggerInterface;
 use PharData;
 use function stream_get_wrappers;
 use function stream_wrapper_restore;
@@ -54,22 +55,30 @@ class Geoip extends Action
     protected $_helperData;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $_logger;
+
+    /**
      * Geoip constructor.
      *
      * @param Context $context
      * @param JsonFactory $resultJsonFactory
      * @param DirectoryList $directoryList
      * @param HelperData $helperData
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Context $context,
         JsonFactory $resultJsonFactory,
         DirectoryList $directoryList,
-        HelperData $helperData
+        HelperData $helperData,
+        LoggerInterface $logger
     ) {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->_directoryList    = $directoryList;
         $this->_helperData       = $helperData;
+        $this->_logger           = $logger;
 
         parent::__construct($context);
     }
@@ -107,7 +116,8 @@ class Geoip extends Action
             $status  = true;
             $message = __('Download library success!');
         } catch (Exception $e) {
-            $message = __('Can\'t download file. Please try again! %1', $e->getMessage());
+            $this->_logger->info($e->getMessage());
+            $message = __('Can\'t download file. Please try again! <br> You can find out more in the error log.' );
         }
 
         /** @var Json $result */
