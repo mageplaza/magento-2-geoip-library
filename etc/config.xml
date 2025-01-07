@@ -25,7 +25,7 @@
         <geoip>
             <module>
                 <type>1</type>
-                <user_guide>magento/module-geoip</user_guide>
+                <user_guide>magento/geoip</user_guide>
             </module>
             <general>
                 <enabled>0</enabled>
