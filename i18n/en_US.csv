@@ -9,3 +9,4 @@ GeoIP,GeoIP
 "License Key","License Key"
 "Please create <a href=""https://www.maxmind.com/en/geolite2/signup"" target=""_blank"">account</a> and get license key <a href=""https://www.maxmind.com/en/accounts/current/license-key"" target=""_blank"">here</a>","Please create <a href=""https://www.maxmind.com/en/geolite2/signup"" target=""_blank"">account</a> and get license key <a href=""https://www.maxmind.com/en/accounts/current/license-key"" target=""_blank"">here</a>"
 "Please save token before downloading the library","Please save token before downloading the library"
+Can't download file. Please try again! <br> You can find out more in the error log.,Can't download file. Please try again! <br> You can find out more in the error log.
