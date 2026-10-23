@@ -24,6 +24,7 @@ namespace Mageplaza\GeoIP\Controller\Adminhtml\System\Config;
 use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
@@ -37,8 +38,10 @@ use function stream_wrapper_restore;
  * Class Geoip
  * @package Mageplaza\GeoIP\Controller\Adminhtml\System\Config
  */
-class Geoip extends Action
+class Geoip extends Action implements HttpPostActionInterface
 {
+    const ADMIN_RESOURCE = 'Mageplaza_GeoIP::configuration';
+
     /**
      * @var JsonFactory
      */

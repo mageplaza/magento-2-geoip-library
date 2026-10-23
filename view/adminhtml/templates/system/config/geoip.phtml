@@ -30,7 +30,7 @@
         var collectSpan = $('#collect_span');
         var buttonDownload = $('#geoip_button');
         buttonDownload.click(function () {
-            var params = {};
+            var params = {form_key: window.FORM_KEY};
             new Ajax.Request('<?= /** @noEscape */ $block->getAjaxUrl() ?>', {
                 parameters: params,
                 loaderArea: false,
