@@ -28,6 +28,7 @@ use Magento\Directory\Model\Region;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
 use Magento\Framework\Locale\Resolver;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
@@ -59,6 +60,11 @@ class Address extends Data
     protected $addressHelper;
 
     /**
+     * @var RemoteAddress
+     */
+    protected $remoteAddress;
+
+    /**
      * Address constructor.
      *
      * @param Context $context
@@ -67,6 +73,7 @@ class Address extends Data
      * @param DirectoryList $directoryList
      * @param Resolver $localeResolver
      * @param Region $regionModel
+     * @param RemoteAddress $remoteAddress
      */
     public function __construct(
         Context $context,
@@ -74,11 +81,13 @@ class Address extends Data
         StoreManagerInterface $storeManager,
         DirectoryList $directoryList,
         Resolver $localeResolver,
-        Region $regionModel
+        Region $regionModel,
+        RemoteAddress $remoteAddress
     ) {
         $this->_directoryList  = $directoryList;
         $this->_localeResolver = $localeResolver;
         $this->_regionModel    = $regionModel;
+        $this->remoteAddress   = $remoteAddress;
 
         parent::__construct($context, $objectManager, $storeManager);
     }
@@ -149,23 +158,7 @@ class Address extends Data
      */
     public function getIpAddress()
     {
-        $fakeIP = $this->_request->getParam('fakeIp', false);
-        if ($fakeIP) {
-            return $fakeIP;
-        }
-
-        $server = $this->_getRequest()->getServer();
-
-        $ip = $server['REMOTE_ADDR'];
-        if (!empty($server['HTTP_CLIENT_IP'])) {
-            $ip = $server['HTTP_CLIENT_IP'];
-        } elseif (!empty($server['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $server['HTTP_X_FORWARDED_FOR'];
-        }
-
-        $ipArr = explode(',', $ip);
-
-        return array_shift($ipArr);
+        return (string) $this->remoteAddress->getRemoteAddress();
     }
 
     /**
