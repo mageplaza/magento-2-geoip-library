@@ -114,7 +114,7 @@ class Geoip extends Action implements HttpPostActionInterface
             $status  = true;
             $message = __('Download library success!');
         } catch (Exception $e) {
-            $this->_logger->info($e->getMessage());
+            $this->_logger->info(preg_replace('/license_key=[^&\s]*/', 'license_key=***', $e->getMessage()));
             $message = __('Can\'t download file. Please try again! <br> You can find out more in the error log.' );
         } finally {
             if ($stage !== null && is_dir($stage)) {
