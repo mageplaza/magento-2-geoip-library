@@ -28,11 +28,15 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Filesystem\DriverInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Mageplaza\GeoIP\Helper\Data as HelperData;
 use Psr\Log\LoggerInterface;
 use PharData;
+use RecursiveIteratorIterator;
 use function stream_get_wrappers;
 use function stream_wrapper_restore;
+use function stream_wrapper_unregister;
 
 /**
  * Class Geoip
@@ -95,7 +99,7 @@ class Geoip extends Action implements HttpPostActionInterface
         try {
             $path = $this->_directoryList->getPath('var') . '/Mageplaza/GeoIp/GeoIp';
             if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+                mkdir($path, DriverInterface::WRITEABLE_DIRECTORY_MODE, true);
             }
             $folder   = scandir($path, true);
             $pathFile = $path . '/' . $folder[0] . '/GeoLite2-City.mmdb';
@@ -109,13 +113,11 @@ class Geoip extends Action implements HttpPostActionInterface
                 rmdir($path . '/' . $folder[0]);
             }
 
-            file_put_contents($path . '/GeoLite2-City.tar.gz', fopen($this->_helperData->getDownloadPath(), 'r'));
-            if (!in_array('phar', stream_get_wrappers(), true)) {
-                stream_wrapper_restore('phar');
-            }
-
-            $phar = new PharData($path . '/GeoLite2-City.tar.gz');
-            $phar->extractTo($path);
+            $archive = $path . '/GeoLite2-City.tar.gz';
+            $url     = $this->_helperData->getDownloadPath();
+            file_put_contents($archive, fopen($url, 'r'));
+            $this->verifyChecksum($archive, $url);
+            $this->extractDatabase($archive, $path);
             $status  = true;
             $message = __('Download library success!');
         } catch (Exception $e) {
@@ -127,5 +129,67 @@ class Geoip extends Action implements HttpPostActionInterface
         $result = $this->resultJsonFactory->create();
 
         return $result->setData(['success' => $status, 'message' => $message]);
+    }
+
+    /**
+     * @param string $archive
+     * @param string $url
+     *
+     * @throws LocalizedException
+     */
+    protected function verifyChecksum($archive, $url)
+    {
+        $expected = strtolower(strtok(trim((string)file_get_contents($url . '.sha256')), " \t"));
+        if (!preg_match('/^[a-f0-9]{64}$/', $expected) || !hash_equals($expected, hash_file('sha256', $archive))) {
+            unlink($archive);
+
+            throw new LocalizedException(__('GeoIP archive checksum mismatch.'));
+        }
+    }
+
+    /**
+     * @param string $archive
+     * @param string $path
+     *
+     * @throws LocalizedException
+     */
+    protected function extractDatabase($archive, $path)
+    {
+        $restored = !in_array('phar', stream_get_wrappers(), true);
+        if ($restored) {
+            stream_wrapper_restore('phar');
+        }
+
+        try {
+            $prefix = 'phar://' . $archive . '/';
+            $phar   = new PharData($archive);
+            foreach (new RecursiveIteratorIterator($phar) as $entry) {
+                $name = substr($entry->getPathname(), strlen($prefix));
+                if (!$entry->isFile() || $entry->isLink() || basename($name) !== 'GeoLite2-City.mmdb'
+                    || $name[0] === '/' || in_array('..', explode('/', $name), true)
+                ) {
+                    continue;
+                }
+                $folder = basename(dirname($name));
+                if (!preg_match('/^[\w.-]+$/', $folder) || $folder === '.' || $folder === '..') {
+                    continue;
+                }
+                $target = $path . '/' . $folder;
+                if (!is_dir($target)) {
+                    mkdir($target, DriverInterface::WRITEABLE_DIRECTORY_MODE, true);
+                }
+                if (!copy($entry->getPathname(), $target . '/GeoLite2-City.mmdb')) {
+                    throw new LocalizedException(__('Cannot write GeoLite2-City.mmdb.'));
+                }
+
+                return;
+            }
+        } finally {
+            if ($restored) {
+                stream_wrapper_unregister('phar');
+            }
+        }
+
+        throw new LocalizedException(__('GeoLite2-City.mmdb not found in archive.'));
     }
 }
