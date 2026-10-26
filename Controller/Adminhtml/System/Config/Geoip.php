@@ -96,39 +96,76 @@ class Geoip extends Action implements HttpPostActionInterface
     public function execute()
     {
         $status = false;
+        $stage  = null;
         try {
             $path = $this->_directoryList->getPath('var') . '/Mageplaza/GeoIp/GeoIp';
             if (!file_exists($path)) {
                 mkdir($path, DriverInterface::WRITEABLE_DIRECTORY_MODE, true);
             }
-            $folder   = scandir($path, true);
-            $pathFile = $path . '/' . $folder[0] . '/GeoLite2-City.mmdb';
-            if (file_exists($pathFile)) {
-                foreach (scandir($path . '/' . $folder[0], true) as $filename) {
-                    if ($filename == '..' || $filename == '.') {
-                        continue;
-                    }
-                    unlink($path . '/' . $folder[0] . '/' . $filename);
-                }
-                rmdir($path . '/' . $folder[0]);
-            }
 
-            $archive = $path . '/GeoLite2-City.tar.gz';
+            $stage = dirname($path) . '/.stage-' . bin2hex(random_bytes(8));
+            mkdir($stage . '/db', DriverInterface::WRITEABLE_DIRECTORY_MODE, true);
+            $archive = $stage . '/GeoLite2-City.tar.gz';
             $url     = $this->_helperData->getDownloadPath();
             file_put_contents($archive, fopen($url, 'r'));
             $this->verifyChecksum($archive, $url);
-            $this->extractDatabase($archive, $path);
+            $folder = $this->extractDatabase($archive, $stage . '/db');
+            $this->replaceDatabase($path, $stage . '/db', $folder);
             $status  = true;
             $message = __('Download library success!');
         } catch (Exception $e) {
             $this->_logger->info($e->getMessage());
             $message = __('Can\'t download file. Please try again! <br> You can find out more in the error log.' );
+        } finally {
+            if ($stage !== null && is_dir($stage)) {
+                $this->removeDirectory($stage);
+            }
         }
 
         /** @var Json $result */
         $result = $this->resultJsonFactory->create();
 
         return $result->setData(['success' => $status, 'message' => $message]);
+    }
+
+    protected function replaceDatabase($path, $source, $folder)
+    {
+        $current = scandir($path, true)[0];
+        $target  = $path . '/' . $folder;
+        if (!is_dir($target)) {
+            mkdir($target, DriverInterface::WRITEABLE_DIRECTORY_MODE, true);
+        }
+        if (!rename($source . '/' . $folder . '/GeoLite2-City.mmdb', $target . '/GeoLite2-City.mmdb')) {
+            throw new LocalizedException(__('Cannot write GeoLite2-City.mmdb.'));
+        }
+
+        if ($current !== $folder && !in_array($current, ['.', '..'], true)
+            && file_exists($path . '/' . $current . '/GeoLite2-City.mmdb')
+        ) {
+            foreach (scandir($path . '/' . $current, true) as $filename) {
+                if ($filename == '..' || $filename == '.') {
+                    continue;
+                }
+                unlink($path . '/' . $current . '/' . $filename);
+            }
+            rmdir($path . '/' . $current);
+        }
+    }
+
+    protected function removeDirectory($directory)
+    {
+        foreach (scandir($directory) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+            $item = $directory . '/' . $item;
+            if (is_dir($item) && !is_link($item)) {
+                $this->removeDirectory($item);
+            } else {
+                unlink($item);
+            }
+        }
+        rmdir($directory);
     }
 
     /**
@@ -151,6 +188,7 @@ class Geoip extends Action implements HttpPostActionInterface
      * @param string $archive
      * @param string $path
      *
+     * @return string
      * @throws LocalizedException
      */
     protected function extractDatabase($archive, $path)
@@ -182,7 +220,7 @@ class Geoip extends Action implements HttpPostActionInterface
                     throw new LocalizedException(__('Cannot write GeoLite2-City.mmdb.'));
                 }
 
-                return;
+                return $folder;
             }
         } finally {
             if ($restored) {
