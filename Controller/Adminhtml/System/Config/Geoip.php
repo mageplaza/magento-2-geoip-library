@@ -161,7 +161,7 @@ class Geoip extends Action implements HttpPostActionInterface
         }
 
         try {
-            $prefix = 'phar://' . $archive . '/';
+            $prefix = 'phar://' . realpath($archive) . '/';
             $phar   = new PharData($archive);
             foreach (new RecursiveIteratorIterator($phar) as $entry) {
                 $name = substr($entry->getPathname(), strlen($prefix));
