@@ -65,6 +65,16 @@ class Address extends Data
     protected $remoteAddress;
 
     /**
+     * @var bool|string|null
+     */
+    protected $libraryPath;
+
+    /**
+     * @var array
+     */
+    protected $geoIpDataCache = [];
+
+    /**
      * Address constructor.
      *
      * @param Context $context
@@ -100,6 +110,19 @@ class Address extends Data
      */
     public function checkHasLibrary()
     {
+        if ($this->libraryPath !== null) {
+            return $this->libraryPath;
+        }
+
+        return $this->libraryPath = $this->resolveLibraryPath();
+    }
+
+    /**
+     * @return bool|string
+     * @throws FileSystemException
+     */
+    protected function resolveLibraryPath()
+    {
         $path = $this->_directoryList->getPath('var') . '/Mageplaza/GeoIp/GeoIp';
         if (!file_exists($path)) {
             return false;
@@ -120,6 +143,21 @@ class Address extends Data
      * @return array
      */
     public function getGeoIpData($storeId = null)
+    {
+        $cacheKey = (string) $storeId;
+        if (!isset($this->geoIpDataCache[$cacheKey])) {
+            $this->geoIpDataCache[$cacheKey] = $this->loadGeoIpData($storeId);
+        }
+
+        return $this->geoIpDataCache[$cacheKey];
+    }
+
+    /**
+     * @param null $storeId
+     *
+     * @return array
+     */
+    protected function loadGeoIpData($storeId)
     {
         try {
             $libPath = $this->checkHasLibrary();
